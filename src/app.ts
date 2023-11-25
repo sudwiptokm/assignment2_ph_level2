@@ -1,5 +1,6 @@
 import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
+import { OrderRoutes } from './app/modules/order/order.route';
 import { UserRoutes } from './app/modules/user/user.route';
 
 const app: Application = express();
@@ -9,7 +10,8 @@ app.use(express.json());
 app.use(cors());
 
 // App routes
-app.use('/api', UserRoutes);
+app.use('/api/users', UserRoutes);
+app.use('/api/users', OrderRoutes);
 
 // Entry point
 const initialController = (req: Request, res: Response) => {
