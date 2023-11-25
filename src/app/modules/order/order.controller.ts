@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { handleError } from '../../utils/ErrorHandler';
 import { OrderServices } from './order.service';
 import OrderValidationSchema from './order.validation';
 
@@ -21,14 +22,7 @@ const addProductToOrder = async (req: Request, res: Response) => {
       data: null,
     });
   } catch (err: any) {
-    res.status(400).json({
-      success: false,
-      message: err.message || 'Something went wrong',
-      error: {
-        code: err.code || 400,
-        description: err.message || 'Bad Request',
-      },
-    });
+    handleError(res, err);
   }
 };
 
@@ -44,14 +38,7 @@ const getAllOrders = async (req: Request, res: Response) => {
       orders: result,
     });
   } catch (err: any) {
-    res.status(400).json({
-      success: false,
-      message: err.message || 'Something went wrong',
-      error: {
-        code: err.code || 400,
-        description: err.message || 'Bad Request',
-      },
-    });
+    handleError(res, err);
   }
 };
 
@@ -71,14 +58,7 @@ const calculateTotalPrice = async (req: Request, res: Response) => {
       },
     });
   } catch (err: any) {
-    res.status(400).json({
-      success: false,
-      message: err.message || 'Something went wrong',
-      error: {
-        code: err.code || 400,
-        description: err.message || 'Bad Request',
-      },
-    });
+    handleError(res, err);
   }
 };
 

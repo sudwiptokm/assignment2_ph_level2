@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const OrderValidationSchema = z.object({
   productName: z
-    .string()
+    .string({ invalid_type_error: 'Product name must be a string' })
     .min(1, { message: 'Product name must have at least 1 character' })
     .max(255, { message: 'Product name cannot exceed 255 characters' })
     .trim(),

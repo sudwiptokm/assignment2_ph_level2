@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { handleError } from '../../utils/ErrorHandler';
 import { TUser } from './user.interface';
 import { UserServices } from './user.service';
 import UserValidationSchema from './user.validation';
@@ -16,14 +17,7 @@ const createUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(404).json({
-      success: false,
-      message: err.message || 'something went wrong',
-      error: {
-        code: err.code || 404,
-        description: err.message || 'Not Found',
-      },
-    });
+    handleError(res, err);
   }
 };
 
@@ -36,14 +30,7 @@ const getAllUsers = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(404).json({
-      success: false,
-      message: err.message || 'something went wrong',
-      error: {
-        code: err.code || 404,
-        description: err.message || 'Not Found',
-      },
-    });
+    handleError(res, err);
   }
 };
 
@@ -59,14 +46,7 @@ const getSingleUSer = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(404).json({
-      success: false,
-      message: err.message || 'something went wrong',
-      error: {
-        code: err.code || 404,
-        description: err.message || 'Not Found',
-      },
-    });
+    handleError(res, err);
   }
 };
 
@@ -87,14 +67,7 @@ const updateUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(404).json({
-      success: false,
-      message: err.message || 'something went wrong',
-      error: {
-        code: err.code || 404,
-        description: err.message || 'Not Found',
-      },
-    });
+    handleError(res, err);
   }
 };
 
@@ -111,14 +84,7 @@ const deleteUser = async (req: Request, res: Response) => {
       data: null,
     });
   } catch (err: any) {
-    res.status(404).json({
-      success: false,
-      message: err.message || 'something went wrong',
-      error: {
-        code: err.code || 404,
-        description: err.message || 'Not Found',
-      },
-    });
+    handleError(res, err);
   }
 };
 

@@ -3,7 +3,7 @@ import OrderValidationSchema from '../order/order.validation';
 
 const AddressValidationSchema = z.object({
   street: z
-    .string()
+    .string({ invalid_type_error: 'Street must be a string' })
     .min(1, { message: 'Street must have at least 1 character' })
     .max(255, { message: 'Street cannot exceed 255 characters' })
     .trim(),
@@ -21,12 +21,12 @@ const AddressValidationSchema = z.object({
 
 const FullNameValidationSchema = z.object({
   firstName: z
-    .string()
+    .string({ invalid_type_error: 'First name must be a string' })
     .min(1, { message: 'First name must have at least 1 character' })
     .max(255, { message: 'First name cannot exceed 255 characters' })
     .trim(),
   lastName: z
-    .string()
+    .string({ invalid_type_error: 'Last name must be a string' })
     .min(1, { message: 'Last name must have at least 1 character' })
     .max(255, { message: 'Last name cannot exceed 255 characters' })
     .trim(),
@@ -36,23 +36,25 @@ const UserValidationSchema = z
   .object({
     userId: z.number({ invalid_type_error: 'User ID must be a valid number' }),
     username: z
-      .string()
+      .string({ invalid_type_error: 'Username must be a string' })
       .min(1, { message: 'Username must have at least 1 character' })
       .max(255, { message: 'Username cannot exceed 255 characters' })
       .trim(),
     password: z
-      .string()
+      .string({ invalid_type_error: 'Password must be a string' })
       .min(1, { message: 'Password must have at least 1 character' })
       .max(255, { message: 'Password cannot exceed 255 characters' }),
     fullName: FullNameValidationSchema,
     age: z.number({ invalid_type_error: 'Age must be a valid number' }),
-    email: z.string().email({ message: 'Invalid email format' }),
+    email: z
+      .string({ invalid_type_error: 'Email must be a string' })
+      .email({ message: 'Invalid email format' }),
     isActive: z.boolean({
       invalid_type_error: 'isActive must be a boolean value',
     }),
     hobbies: z.array(
       z
-        .string()
+        .string({ invalid_type_error: 'Hobby must be a string' })
         .min(1, { message: 'Hobby must have at least 1 character' })
         .max(255, { message: 'Hobby cannot exceed 255 characters' })
         .trim(),
