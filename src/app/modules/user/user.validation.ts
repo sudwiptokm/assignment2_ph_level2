@@ -32,35 +32,37 @@ const FullNameValidationSchema = z.object({
     .trim(),
 });
 
-const UserValidationSchema = z.object({
-  userId: z.number({ invalid_type_error: 'User ID must be a valid number' }),
-  username: z
-    .string()
-    .min(1, { message: 'Username must have at least 1 character' })
-    .max(255, { message: 'Username cannot exceed 255 characters' })
-    .trim(),
-  password: z
-    .string()
-    .min(1, { message: 'Password must have at least 1 character' })
-    .max(255, { message: 'Password cannot exceed 255 characters' }),
-  fullName: FullNameValidationSchema,
-  age: z.number({ invalid_type_error: 'Age must be a valid number' }),
-  email: z.string().email({ message: 'Invalid email format' }),
-  isActive: z.boolean({
-    invalid_type_error: 'isActive must be a boolean value',
-  }),
-  hobbies: z.array(
-    z
+const UserValidationSchema = z
+  .object({
+    userId: z.number({ invalid_type_error: 'User ID must be a valid number' }),
+    username: z
       .string()
-      .min(1, { message: 'Hobby must have at least 1 character' })
-      .max(255, { message: 'Hobby cannot exceed 255 characters' })
+      .min(1, { message: 'Username must have at least 1 character' })
+      .max(255, { message: 'Username cannot exceed 255 characters' })
       .trim(),
-  ),
-  address: AddressValidationSchema,
-  orders: z.array(OrderValidationSchema).optional(),
-  isDeleted: z
-    .boolean({ invalid_type_error: 'isDeleted must be a boolean value' })
-    .default(false),
-});
+    password: z
+      .string()
+      .min(1, { message: 'Password must have at least 1 character' })
+      .max(255, { message: 'Password cannot exceed 255 characters' }),
+    fullName: FullNameValidationSchema,
+    age: z.number({ invalid_type_error: 'Age must be a valid number' }),
+    email: z.string().email({ message: 'Invalid email format' }),
+    isActive: z.boolean({
+      invalid_type_error: 'isActive must be a boolean value',
+    }),
+    hobbies: z.array(
+      z
+        .string()
+        .min(1, { message: 'Hobby must have at least 1 character' })
+        .max(255, { message: 'Hobby cannot exceed 255 characters' })
+        .trim(),
+    ),
+    address: AddressValidationSchema,
+    orders: z.array(OrderValidationSchema).optional(),
+    isDeleted: z
+      .boolean({ invalid_type_error: 'isDeleted must be a boolean value' })
+      .default(false),
+  })
+  .partial();
 
 export default UserValidationSchema;

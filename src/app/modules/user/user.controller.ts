@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { TUser } from './user.interface';
 import { UserServices } from './user.service';
 import UserValidationSchema from './user.validation';
 
@@ -7,7 +8,7 @@ const createUser = async (req: Request, res: Response) => {
     const user = req.body;
     const zodParsedData = UserValidationSchema.parse(user);
 
-    const result = await UserServices.createUserIntoDB(zodParsedData);
+    const result = await UserServices.createUserIntoDB(zodParsedData as TUser);
 
     res.status(200).json({
       success: true,
@@ -77,7 +78,7 @@ const updateUser = async (req: Request, res: Response) => {
 
     const result = await UserServices.updateUserInDB(
       parseInt(userId),
-      zodParsedData,
+      zodParsedData as TUser,
     );
 
     res.status(200).json({
